@@ -14,6 +14,7 @@ Usefully references:
     * https://github.com/cesquivias/mumbler
 
 * https://chrisseaton.com/truffleruby/tenthings/
+* https://www.endoflineblog.com/graal-truffle-tutorial-part-0-what-is-truffle
 
 Nodes of recursive interpreter from Lama [??] are used.
 
