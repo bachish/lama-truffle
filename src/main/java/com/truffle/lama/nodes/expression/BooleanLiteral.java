@@ -2,17 +2,18 @@ package com.truffle.lama.nodes.expression;
 
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.NodeInfo;
+import com.oracle.truffle.api.nodes.UnexpectedResultException;
 
 /**
- * Constant literal for a primitive {@code int} value. The unboxed value can be returned when the
- * parent expects a int value and calls {@link DecimalLiteral#executeInt}.
+ * Constant literal for a primitive {@code boolean} value. The unboxed value can be returned when the
+ * parent expects a int value and calls {@link BooleanLiteral#executeBool}.
  * In the generic case, the value is automatically boxed by Java.
  */
 @NodeInfo(shortName = "const int")
-public class DecimalLiteral extends Expression {
-    private final int value;
+public class BooleanLiteral extends Expression {
+    private final boolean value;
 
-    public DecimalLiteral(int value) {
+    public BooleanLiteral(boolean value) {
         this.value = value;
     }
 
@@ -22,8 +23,8 @@ public class DecimalLiteral extends Expression {
     }
 
     @Override
-    public int executeInt(VirtualFrame frame) {
-        return value;
+    public int executeInt(VirtualFrame frame) throws UnexpectedResultException {
+        throw new UnexpectedResultException("Excepted int, but was boolean");
     }
 
     @Override
@@ -33,6 +34,6 @@ public class DecimalLiteral extends Expression {
 
     @Override
     public boolean executeBool(VirtualFrame frame) {
-        return value != 0;
+        return value;
     }
 }

@@ -5,13 +5,15 @@ import com.oracle.truffle.api.frame.FrameDescriptor;
 import com.oracle.truffle.api.frame.VirtualFrame;
 import com.oracle.truffle.api.nodes.RootNode;
 
-import java.util.List;
-
 public class CompilationUnitNode extends RootNode {
     @SuppressWarnings("FieldMayBeFinal")
     @Child
-    private ScopeExpressionNode scopes;
+    private LamaNode scopes;
 
+    public CompilationUnitNode(LamaNode expr) {
+        super(null);
+        scopes = expr;
+    }
     protected CompilationUnitNode(TruffleLanguage<?> language) {
         super(language);
     }
@@ -22,6 +24,6 @@ public class CompilationUnitNode extends RootNode {
 
     @Override
     public Object execute(VirtualFrame frame) {
-        return null;
+        return scopes.executeGeneric(frame);
     }
 }
