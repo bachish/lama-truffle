@@ -13,12 +13,14 @@ Usefully references:
 *
     * https://github.com/cesquivias/mumbler
 
-* https://chrisseaton.com/truffleruby/tenthings/
 * https://www.endoflineblog.com/graal-truffle-tutorial-part-0-what-is-truffle
 
 Nodes of recursive interpreter from Lama [??] are used.
 
+## Antlr
 The syntax is described using ANTLR in language/src/main/java/com/oracle/truffle/sl/parser/SimpleLanguage.g4
+
+To run ANTLR parser generation use `generate_parser.sh`.
 
 Native C functions rewritten in Java
 
