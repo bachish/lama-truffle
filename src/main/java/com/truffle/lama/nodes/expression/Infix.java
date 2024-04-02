@@ -21,7 +21,7 @@ public abstract class Infix extends Expression {
     );
 
     private final Map<String, BinaryOperator<Boolean>> logicalOperations = Map.of(
-            "|", (a, b) -> a || b,
+            "!!", (a, b) -> a || b,
             "&", (a, b) -> a && b,
             "!", (a, b) -> a != b,
             "^", (a, b) -> a ^ b

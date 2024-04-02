@@ -1,36 +1,28 @@
-import com.truffle.lama.nodes.CompilationUnitNode;
-import com.truffle.lama.nodes.expression.BooleanLiteral;
-import com.truffle.lama.nodes.expression.DecimalLiteral;
-import com.truffle.lama.nodes.expression.InfixNodeGen;
-import com.truffle.lama.nodes.expression.StringLiteral;
+import com.truffle.lama.LamaLanguage;
+import com.truffle.lama.nodes.LamaRootNode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SimpleTests {
+    Object evaluate(String code) {
+        var node = LamaLanguage.parse(code);
+        var rootNode = new LamaRootNode(node);
+        return rootNode.getCallTarget().call();
+    }
     @Test
     void simpleIntTest() {
-        var x = new DecimalLiteral(1);
-        var y = new DecimalLiteral(1);
-        var op = new StringLiteral("+");
-        var node = InfixNodeGen.create(x, op, y);
-        var rootNode = new CompilationUnitNode(node);
-
-        var result = rootNode.getCallTarget().call();
-        assertEquals(2, result);
-
+        assertEquals(7, evaluate("3 + 4"));
     }
+
 
     @Test
     void simpleBoolTest() {
-        var x = new BooleanLiteral(false);
-        var y = new BooleanLiteral(true);
-        var op = new StringLiteral("|");
-        var node = InfixNodeGen.create(x, op, y);
-        var rootNode = new CompilationUnitNode(node);
+        assertEquals(true, evaluate("false !! true"));
+    }
 
-        var result = rootNode.getCallTarget().call();
-        assertEquals(true, result);
-
+    @Test
+    void assignmentTest() {
+        assertEquals(3, evaluate("var x = 3; x"));
     }
 }
