@@ -11,6 +11,15 @@ import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 
+//we need to register our language class for using it at runtime
+//(for me fail only on context addition step)
+@TruffleLanguage.Registration(id = "lml", name = "Lama")
+/**
+ * Polyglot ecosystem
+ * 1. Override getScope(ctx...) method
+ * 2. Implement the interop library in the GlobalContext
+ *
+ */
 public final class LamaLanguage extends TruffleLanguage<LamaContext> {
 
     @Override
@@ -24,6 +33,11 @@ public final class LamaLanguage extends TruffleLanguage<LamaContext> {
         var compilationUnit = parse(sourceCode);
         var root = new LamaRootNode(compilationUnit);
         return root.getCallTarget();
+    }
+
+    @Override
+    protected Object getScope(LamaContext context) {
+        return context.vars;
     }
 
     public static LamaNode parse(CharStream sourceCode) {
@@ -46,5 +60,12 @@ public final class LamaLanguage extends TruffleLanguage<LamaContext> {
     public static LamaNode parse(String sourceCode) {
         return parse(CharStreams.fromString(sourceCode));
     }
+    /**
+     * Implements Interop library
+     * Represents the library that specifies the interoperability message protocol\
+     * between Truffle languages, tools and embedders.
+     */
+
+
 
 }

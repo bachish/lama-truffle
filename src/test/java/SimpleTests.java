@@ -1,5 +1,6 @@
 import com.truffle.lama.LamaLanguage;
 import com.truffle.lama.nodes.LamaRootNode;
+import org.graalvm.polyglot.Context;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +24,10 @@ class SimpleTests {
 
     @Test
     void assignmentTest() {
-        assertEquals(3, evaluate("var x = 3; x"));
+        try (Context context = Context.create()) {
+            var result = context.eval("lml", "var x = 3; x");
+            assertEquals(3, result.asInt());
+        }
+
     }
 }

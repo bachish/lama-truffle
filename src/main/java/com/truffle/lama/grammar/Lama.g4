@@ -48,14 +48,12 @@ lama_import : IMPORT UIDENT ';';
 compilationUnit : lama_import* scopeExpression;
 scopeExpression : definition* seqExpression?;
 definition
-        : variableDefinition
+        : variableDefinitions
         | functionDefinition
         ;
 
-variableDefinition: (VAR | PUBLIC) variableDefinitionSequence ';' ;
-variableDefinitionSequence
-    : variableDefinitionItem ( ',' variableDefinitionItem )*;
-variableDefinitionItem : LIDENT ( '=' basicExpression )?;
+variableDefinitions: (VAR | PUBLIC) variableDefinitionItem ( ',' variableDefinitionItem )* ';' ;
+variableDefinitionItem : LIDENT ( '=' binaryExpression )?;
 functionDefinition :
     PUBLIC?  FUN LIDENT '(' functionArguments ')' functionBody;
 functionArguments : (LIDENT ( ',' LIDENT )*)?;
@@ -65,8 +63,7 @@ functionBody : '{' scopeExpression '}';
 EXPRESSIONS
 **/
 
-seqExpression : basicExpression ( ';' seqExpression )?;
-basicExpression : binaryExpression;
+seqExpression : binaryExpression ( ';' seqExpression )?;
 binaryExpression
         : left=binaryOperand INFIX right=binaryOperand      #binaryOperation
         | binaryOperand                                     #unaryOperation

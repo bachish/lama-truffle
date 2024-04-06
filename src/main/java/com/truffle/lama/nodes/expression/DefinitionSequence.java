@@ -8,18 +8,19 @@ import java.util.List;
 
 public class DefinitionSequence extends LamaNode {
     @Children
-    VariableDefinitionItem[] children;
+    VariableDefinition[] children;
 
-    public DefinitionSequence(List<VariableDefinitionItem> childList) {
-        children = childList.toArray(new VariableDefinitionItem[0]);
+    public DefinitionSequence(List<VariableDefinition> childList) {
+        children = childList.toArray(new VariableDefinition[0]);
     }
 
 
     @Override
     public Object executeGeneric(VirtualFrame frame) {
-        return Arrays.stream(children)
+        var res = Arrays.stream(children)
                 .map(it -> it.executeGeneric(frame))
-                .toList().getLast();
+                .toList();
+        return res.getLast();
     }
 
 }
