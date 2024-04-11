@@ -17,14 +17,23 @@ public abstract class Infix extends Expression {
             "-", (a, b) -> a - b,
             "*", (a, b) -> a * b,
             "/", (a, b) -> a / b,
-            "%", (a, b) -> a % b
+            "%", (a, b) -> a % b,
+            ":=", (a, b) -> {
+                assignment(a, b);
+                return 0;
+            }
+
     );
 
     private final Map<String, BinaryOperator<Boolean>> logicalOperations = Map.of(
             "!!", (a, b) -> a || b,
             "&", (a, b) -> a && b,
             "!", (a, b) -> a != b,
-            "^", (a, b) -> a ^ b
+            "^", (a, b) -> a ^ b,
+            ":=", (a, b) -> {
+                assignment(a, b);
+                return false;
+            }
     );
 
     @Specialization
@@ -37,6 +46,12 @@ public abstract class Infix extends Expression {
     protected boolean boolOperation(boolean leftValue, String operandView, boolean rightValue) {
         var op = logicalOperations.getOrDefault(operandView, null);
         return op.apply(leftValue, rightValue);
+    }
+
+
+    protected void assignment(Object leftValue, Object rightValue) {
+        String varName = leftValue.toString();
+        this.getContext().vars.updateVariable(varName, rightValue);
     }
 
 }

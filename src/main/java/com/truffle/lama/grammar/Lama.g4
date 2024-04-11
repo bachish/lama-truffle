@@ -40,7 +40,7 @@ INFIX : '!!'|'+'|'*'|'/'|'%'|'$'|'#'|'@'|'!'|'&'|'ˆ'|'?'|'<'|'>'|':='|'-';
 UIDENT : [A-Z][a-zA-Z0-9]*;
 LIDENT : [a-z][a-zA-Z0-9]*;
 DECIMAL : '-'?[0-9]+;
-STRING : '"'([^"])*'"';
+STRING : '"' (~'"' | '""')* '"';
 CHAR : [a-z][A-Z];
 
 
@@ -80,17 +80,17 @@ primary : DECIMAL                                       #decimal
         | CHAR                                          #char
         | TRUE                                          #true
         | FALSE                                          #false
-        |FUN '(' functionArguments ')' functionBody     #fun
-        |SKIP_                                          #skip
-        |'(' scopeExpression ')'                        #scope
-        |listExpression                                 #list
-        |arrayExpression                                #array
-        |sExpression                                    #sexp
-        |ifExpression                                   #ifexp
-        |whileDoExpression                              #while
-        |doWhileExpression                              #dowhile
-        |forExpression                                  #for
-        |caseExpression                                 #case
+        | FUN '(' functionArguments ')' functionBody     #fun
+        | SKIP_                                          #skip
+        | '(' scopeExpression ')'                        #scope
+        | listExpression                                 #list
+        | arrayExpression                                #array
+        | sExpression                                    #sexp
+        | ifExpression                                   #ifexp
+        | whileDoExpression                              #while
+        | doWhileExpression                              #dowhile
+        | forExpression                                  #for
+        | caseExpression                                 #case
         | LIDENT                                        #lident
         ;
 

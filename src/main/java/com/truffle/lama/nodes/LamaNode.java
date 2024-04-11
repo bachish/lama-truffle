@@ -11,6 +11,11 @@ public abstract class LamaNode extends Node {
     protected final LamaContext getContext() {
         return LamaContext.get(this);
     }
+
     public abstract Object executeGeneric(VirtualFrame frame);
+
+    public int getSlot() {
+        return 0;
+    }
 
 }

@@ -21,6 +21,7 @@ dependencies{
     //to run tests
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.10.0")
 
 }
 

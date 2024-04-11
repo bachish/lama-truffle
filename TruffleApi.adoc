@@ -98,5 +98,4 @@ public abstract class AdditionNode extends EasyScriptNode {
 This tells the annotation processor that it should generate a Node class with two @Child fields, named leftNode and rightNode.
 Since AdditionNode extends EasyScriptNode, the type of those fields will be EasyScriptNode – you can change that with the type attribute of the @NodeChild annotation.
 
-
-
+== Variable Storage

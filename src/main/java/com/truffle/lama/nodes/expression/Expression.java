@@ -13,4 +13,5 @@ public abstract class Expression extends LamaNode {
     public abstract String executeString(VirtualFrame frame);
 
     public abstract boolean executeBool(VirtualFrame frame);
+
 }
